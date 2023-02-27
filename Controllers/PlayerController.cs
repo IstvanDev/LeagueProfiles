@@ -120,7 +120,6 @@ namespace LeagueProfiles.Controllers
             player.Name = playerDto.Name;
             player.Level = playerDto.Level;
             player.Username = playerDto.Username;
-            player.Level = playerDto.Level;
             player.Role = playerDto.Role;
 
             if (!_playerRepository.UpdatePlayer(player))
