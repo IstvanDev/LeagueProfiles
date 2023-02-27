@@ -5,4 +5,4 @@ This applicaton served to me as a practice ground for all I believe there is to 
 TODO:
 - Exception handler
 - Refactor and move some functionality to their respective classes
-- Possibly begin an Angular project to provide a frontend application
+- Possibly begin an Angular project to provide a frontend application (In progress)
