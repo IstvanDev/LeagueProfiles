@@ -20,6 +20,7 @@ namespace LeagueProfiles.Interfaces
 
         public ICollection<Champion> GetPlayerChampions(int id);
         public bool UpdatePlayer(Player player);
+        public bool DeletePlayer(Player player);
 
         public string GetPlayerNameTokenBased();
     }

@@ -59,6 +59,9 @@ namespace LeagueProfiles.Repositories
 
         public bool UpdateChampion(Champion Champion)
         {
+            if(!ChampionExists(Champion.Id))
+                return false;
+
             _dataContext.Update(Champion);
 
             return Save();
@@ -67,6 +70,16 @@ namespace LeagueProfiles.Repositories
         public bool Save()
         {
             return _dataContext.SaveChanges() > 0 ? true : false;
+        }
+
+        public bool DeleteChampion(Champion Champion)
+        {
+            if (!ChampionExists(Champion.Id))
+                return false;
+
+            _dataContext.Remove(Champion);
+
+            return Save();
         }
     }
 }

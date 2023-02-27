@@ -59,5 +59,37 @@ namespace LeagueProfiles.Controllers
 
             return Ok("Created the following champion object: " + champion.ToString());
         }
+
+        [HttpPut]
+
+        public async Task<IActionResult> UpdateChampion(ChampionDto championDto, int championId)
+        {
+            var champion = await _championRepository.GetChampionById(championId);
+
+            if (champion == null)
+                return NotFound();
+
+            champion.Name = championDto.Name;
+
+            if (!_championRepository.UpdateChampion(champion))
+                return BadRequest("Something went wrong while trying to update the object in the database.");
+
+            return Ok(champion);
+        }
+
+        [HttpDelete]
+
+        public async Task<IActionResult> DeleteChampion(int championId)
+        {
+            var champion = await _championRepository.GetChampionById(championId);
+
+            if (champion == null)
+                return NotFound();
+
+            if (!_championRepository.DeleteChampion(champion))
+                return BadRequest("Something went wrong while trying to delete the object from the database.");
+
+            return Ok(champion);
+        }
     }
 }

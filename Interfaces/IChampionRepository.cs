@@ -16,5 +16,6 @@ namespace LeagueProfiles.Interfaces
 
         public ICollection<Player> GetChampionPlayers(int id);
         public bool UpdateChampion(Champion Champion);
+        public bool DeleteChampion(Champion Champion);
     }
 }

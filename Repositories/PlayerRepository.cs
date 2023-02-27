@@ -109,5 +109,15 @@ namespace LeagueProfiles.Repositories
 
             return Save();
         }
+
+        public bool DeletePlayer(Player player)
+        {
+            if (!PlayerExists(player.Id))
+                return false;
+
+            _dataContext.Remove(player);
+
+            return Save();
+        }
     }
 }

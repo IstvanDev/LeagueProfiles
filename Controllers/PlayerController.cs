@@ -2,6 +2,7 @@
 using LeagueProfiles.Dtos;
 using LeagueProfiles.Interfaces;
 using LeagueProfiles.Models;
+using LeagueProfiles.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeagueProfiles.Controllers
@@ -100,6 +101,47 @@ namespace LeagueProfiles.Controllers
                 return BadRequest("Something went wrong while trying to make the connection or save.");
 
             return Ok("Successfully made connection (?)");
+        }
+
+        [HttpPut]
+
+        public async Task<IActionResult> UpdatePlayer(PlayerDto playerDto, int playerId)
+        {
+            var player = await _playerRepository.GetPlayerById(playerId);
+
+            if (player == null)
+                return NotFound();
+
+            var playerWithUsername = await _playerRepository.GetPlayerByUserName(playerDto.Username);
+
+            if (playerWithUsername != null && playerWithUsername != player)
+                return BadRequest("Username taken.");
+
+            player.Name = playerDto.Name;
+            player.Level = playerDto.Level;
+            player.Username = playerDto.Username;
+            player.Level = playerDto.Level;
+            player.Role = playerDto.Role;
+
+            if (!_playerRepository.UpdatePlayer(player))
+                return BadRequest("Something went wrong while trying to update the object in the database.");
+
+            return Ok(player);
+        }
+
+        [HttpDelete]
+
+        public async Task<IActionResult> Deleteplayer(int playerId)
+        {
+            var player = await _playerRepository.GetPlayerById(playerId);
+
+            if (player == null)
+                return NotFound();
+
+            if (!_playerRepository.DeletePlayer(player))
+                return BadRequest("Something went wrong while trying to delete the object from the database.");
+
+            return Ok();
         }
     }
 }
